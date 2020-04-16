@@ -1,0 +1,14 @@
+#在centos7上安装jdk
+FROM centos:7.2.1511
+RUN echo "Asia/Shanghai" > /etc/timezone;
+＃创建一个容器路径
+RUN mkdir /usr/local/java
+＃把本地的jdk文件添加到容器指定的路径
+ADD jdk-8u201-linux-x64.tar.gz /usr/local/java/
+＃做个软连接
+RUN ln -s /usr/local/java/jdk1.8.0_201 /usr/local/java/jdk
+＃环境变量设置
+ENV JAVA_HOME=/usr/local/java/jdk
+ENV JRE_HOME=${JAVA_HOME}/jre
+ENV CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+ENV PATH=${JAVA_HOME}/bin:$PATH
